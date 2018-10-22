@@ -5,9 +5,9 @@ services:
     image: 'bitnami/mariadb:latest'
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_USER=my_user
-      - MARIADB_DATABASE=my_database
-      - MARIADB_PASSWORD=my_password
+      - MARIADB_USER=homestead
+      - MARIADB_DATABASE=homestead
+      - MARIADB_PASSWORD=secret
 
   myapp:
     tty: true
@@ -16,9 +16,9 @@ services:
       kompose.service.type: nodeport
     environment:
       - DB_HOST=mariadb
-      - DB_USERNAME=my_user
-      - DB_DATABASE=my_database
-      - DB_PASSWORD=my_password
+      - DB_USERNAME=homestead
+      - DB_DATABASE=homestead
+      - DB_PASSWORD=secret
     depends_on:
       - mariadb
     ports:
