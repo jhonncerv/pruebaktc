@@ -16,6 +16,9 @@ class CreatePdfsTable extends Migration
         Schema::create('pdfs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->string('url');
+            $table->unsignedInteger('accesorio_id');
+            $table->foreign('accesorio_id')->references('id')->on('accesorios');
             $table->timestamps();
         });
     }
