@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Accesorio;
 use Illuminate\Http\Request;
+use App\Http\Requests\AccesorioRequest;
+use App\Http\Resources\AccesorioResource;
 
 class AccesorioController extends Controller
 {
@@ -14,17 +16,7 @@ class AccesorioController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        // <=>
     }
 
     /**
@@ -33,9 +25,10 @@ class AccesorioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AccesorioRequest $request)
     {
-        //
+        $accesorio = Accesorio::create($request->validated());
+        return new AccesorioResource($accesorio);
     }
 
     /**
@@ -46,30 +39,26 @@ class AccesorioController extends Controller
      */
     public function show(Accesorio $accesorio)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Accesorio  $accesorio
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Accesorio $accesorio)
-    {
-        //
+        return new AccesorioResource($accesorio);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  AccesorioRequest  $request
      * @param  \App\Accesorio  $accesorio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Accesorio $accesorio)
+    public function update(AccesorioRequest $request, Accesorio $accesorio)
     {
-        //
+        $accesorio->nombre = $request->nombre;
+        $accesorio->SKU = $request->SKU;
+        $accesorio->descripcion = $request->descripcion;
+        $accesorio->categoria_id = $request->categoria_id;
+        $accesorio->fabricante_id = $request->fabricante_id;
+        $accesorio->pais_id = $request->pais_id;
+        $accesorio->save();
+        return new AccesorioResource($accesorio);
     }
 
     /**
@@ -80,6 +69,10 @@ class AccesorioController extends Controller
      */
     public function destroy(Accesorio $accesorio)
     {
-        //
+        $accesorio->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Accesorio borrado.'
+        ])
     }
 }
