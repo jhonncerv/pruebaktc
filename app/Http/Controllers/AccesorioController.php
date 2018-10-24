@@ -6,24 +6,25 @@ use App\Accesorio;
 use Illuminate\Http\Request;
 use App\Http\Requests\AccesorioRequest;
 use App\Http\Resources\AccesorioResource;
+use App\Http\Resources\AccesorioCollection;
 
 class AccesorioController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AccesorioCollection
      */
     public function index()
     {
-        // <=>
+        return new AccesorioCollection(Accesorio::all()->load(['images', 'pdfs']));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AccesorioRequest $request
+     * @return AccesorioResource
      */
     public function store(AccesorioRequest $request)
     {
@@ -35,7 +36,7 @@ class AccesorioController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Accesorio  $accesorio
-     * @return \Illuminate\Http\Response
+     * @return AccesorioResource
      */
     public function show(Accesorio $accesorio)
     {
@@ -45,9 +46,9 @@ class AccesorioController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  AccesorioRequest  $request
-     * @param  \App\Accesorio  $accesorio
-     * @return \Illuminate\Http\Response
+     * @param  AccesorioRequest $request
+     * @param  \App\Accesorio $accesorio
+     * @return AccesorioResource
      */
     public function update(AccesorioRequest $request, Accesorio $accesorio)
     {
@@ -64,8 +65,9 @@ class AccesorioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Accesorio  $accesorio
+     * @param  \App\Accesorio $accesorio
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Accesorio $accesorio)
     {
@@ -73,6 +75,6 @@ class AccesorioController extends Controller
         return response()->json([
             'status' => 200,
             'message' => 'Accesorio borrado.'
-        ])
+        ]);
     }
 }

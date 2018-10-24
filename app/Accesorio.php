@@ -13,7 +13,7 @@ class Accesorio extends Model
      */
      protected $fillable = [
         'nombre',
-        'SKU',
+        'sku',
         'descripcion',
         'categoria_id',
         'fabricante_id',

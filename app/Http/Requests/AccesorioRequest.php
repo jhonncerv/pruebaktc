@@ -24,11 +24,11 @@ class AccesorioRequest extends FormRequest
     public function rules()
     {
         return [
-            'SKU' => 'bail|required|unique:SKU',
+            'nombre' => 'required',
+            'sku' => 'bail|required|unique:SKU',
             'categoria_id' => 'bail|required|exists:categorias',
             'fabricante_id' => 'bail|required|exists:fabricantes',
             'pais_id' => 'bail|required|exists:paises',
-            'nombre' => 'required',
             'descripcion' => 'required'
         ];
     }

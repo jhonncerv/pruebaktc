@@ -16,7 +16,7 @@ class CreateAccesoriosTable extends Migration
         Schema::create('accesorios', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('SKU');
+            $table->string('sku');
             $table->text('descripcion');
             $table->unsignedInteger('categoria_id');
             $table->foreign('categoria_id')->references('id')->on('categorias');
